@@ -39,8 +39,29 @@
                     </x-jet-nav-link>
                 </div>
                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ url('') }}" :active="request()->routeIs('')">
+                        {{ __('Home') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user.index')">
+                        {{ __('All User') }}
+                    </x-jet-nav-link>
+                </div>
+               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('employee.index') }}" :active="request()->routeIs('employee.index')">
                         {{ __('Employee') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('usertype.index') }}" :active="request()->routeIs('usertype.index')">
+                        {{ __('User Type') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('category.index')">
+                        {{ __('Category') }}
                     </x-jet-nav-link>
                 </div>
                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

@@ -9,7 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/user/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
@@ -33,9 +33,15 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('post', \App\Http\Controllers\PostController::class);
  // Route::post('comment/{post}', 'CommentController@store')->name('comment.store');
   Route::post('comment/{post}', [CommentController::class, 'store'])->name('comment.store');
+    Route::get('like/{post_id}', [LikeController::class, 'like'])->name('like');
+ Route::resource('usertype', \App\Http\Controllers\UserTypeController::class);
+  Route::resource('user', \App\Http\Controllers\UserController::class);
+
 });
  Route::get('single-page/{post}', [PostController::class, 'details'])->name('post.details');
+
 
 // Route::get('/single-page', function () {
 //     return view('single-page');
 // });
+

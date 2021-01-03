@@ -31,16 +31,29 @@
                             </select>
                       </div>
 
+<!--                         @php
+                        $role = DB::table('usertypes')->get();
+                        @endphp
 
                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <label for="role" class="block font-medium text-sm text-gray-700">User Type</label>
+                            <select  name = "role" class="form-input rounded-md shadow-sm mt-1 block w-full" id="exampleInputEmail1"> 
+                            <option disabled="" selected="">Select....</option>
+                            @foreach( $role as $row)
+                            <option value="{{$row->typename}}">{{$row->typename}}</option>
+                            @endforeach
+                            </select>
+                      </div> -->
+
+<!--                        <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="author" class="block font-medium text-sm text-gray-700">Author</label>
                             <input type="text" name="author" id="author" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('author', '') }}" />
-                        </div>
+                        </div> -->
                         <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="details" class="block font-medium text-sm text-gray-700">Details</label>
-                            <input type="details" name="details" id="details" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('details', '') }}" />
+                            <textarea type="details" name="details" id="details" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('details', '') }}"></textarea>
                         </div>
 
                         <div class="px-4 py-5 bg-white sm:p-6">

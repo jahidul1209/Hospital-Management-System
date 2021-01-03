@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Appoinment;
 use App\Models\Post;
+use App\Models\Postcategorie;
 use DB;
 use App\Models\User;
+use Auth;
+use App\Models\Usertype;
 class PostController extends Controller
 {
     /**
@@ -39,18 +42,20 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'author' => 'required',
+            // 'author' => 'required',
             'photo' => 'required',
             'category' => 'required',
             'details' => 'required',
+            // 'role' => 'required',
         ]);
 
         
         $post = new Post();
         $post->title = $request->title;
            $post->category = $request->category;
-        $post->author = $request->author;
+        $post->author = Auth::user()->name;
         $post->details = $request->details;
+        $post->role = Auth::user()->user_type;
        if($request->hasfile('photo')){
             $path = $request->file('photo');
             $ext=strtolower($path->getClientOriginalExtension());
@@ -135,7 +140,9 @@ class PostController extends Controller
         public function details($post)
     {
            $posts = Post::find($post);
-         return view('single-page',compact('posts'));
+           $allcategory = Postcategorie::all();
+            $allpost = Post::all();
+         return view('single-page',compact('posts','allcategory','allpost'));
     }
 
 }

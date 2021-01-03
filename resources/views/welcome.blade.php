@@ -41,10 +41,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-md-6">
-                    <p class="bold text-left">Monday - Saturday, 8am to 10pm </p>
+                    <p class="bold text-left">{{date('D M Y  h:i:sa') }} </p>
                     </div>
                     <div class="col-sm-6 col-md-6">
-                    <p class="bold text-right">Call us now +62 008 65 001</p>
+                    <p class="bold text-right">Call us now 01925076358</p>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="#">
                     <img src="{{URL::to('medical/img/logo.png')}}" alt="" width="150" height="40" />
                 </a>
             </div>
@@ -65,10 +65,11 @@
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#intro">Home</a></li>
                 <li><a href="#service">Service</a></li>
-                <li><a href="#doctor">Doctors</a></li>
+                <li><a href="#facility">Facility</a></li>
+                <li><a href="#partner">Partner</a></li>
 
                     @auth
-                        <li><a href="{{ url('dashboard') }}" class="text-sm text-gray-700 ">Dashboard</a></li>
+                        <li><a href="{{ url('admin/dashboard') }}" class="text-sm text-gray-700 ">Dashboard</a></li>
                     @else
                         <li><a href="{{ route('login') }}" class="text-sm text-gray-700 ">Login</a></li>
 
@@ -361,7 +362,7 @@
     <!-- /Section: services -->
 
     <!-- Section: works -->
-    <section id="facilities" class="home-section paddingbot-60">
+    <section id="facility" class="home-section paddingbot-60">
         <div class="container marginbot-50">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">

@@ -6,15 +6,20 @@
 
         <x-jet-validation-errors class="mb-4" />
 
+    @php
+    $usertype = DB::table('usertypes')->get();
+    @endphp
+
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div>
 
-           <x-jet-label for="user_type" >Users</x-jet-label>
+           <x-jet-label for="user_type">Users</x-jet-label>
           <select name="user_type" id="user_type" class="form-select rounded-md shadow-sm mt-1 block w-full">
-                  <option value="Admin">Admin</option>
-                  <option value="USR">Users</option>   
-
+            <option disabled="" selected="">Select....</option>
+            @foreach( $usertype as $row)
+                  <option value="{{$row->typename}}">{{$row->typename}}</option>
+            @endforeach
           </select>
 
             </div>

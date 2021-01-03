@@ -11,13 +11,19 @@
                 <form method="post" action="{{ route('employee.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
-        <div class="px-4 py-5 bg-white sm:p-6">
-            <select name="role" id="role" class="form-select rounded-md shadow-sm mt-1 block w-full">
-                  <option value="Admin">Admin</option>
-                  <option value="Doctor">Doctor</option> 
-                   <option value="Nurse">Nurse</option>
-                    <option value="Users">Users</option> 
+    @php
+    $usertype = DB::table('usertypes')->get();
+    @endphp
 
+
+
+        <div class="px-4 py-5 bg-white sm:p-6">
+        <label for="name" class="block font-medium text-sm text-gray-700">User Role</label>
+         <select name="role" id="role" class="form-select rounded-md shadow-sm mt-1 block w-full">
+       <option disabled="" selected="">Select....</option>
+          @foreach( $usertype as $user)
+              <option value="{{$user->typename}}">{{$user->typename}}</option>
+          @endforeach
           </select>
         </div>
                         <div class="px-4 py-5 bg-white sm:p-6">

@@ -9,9 +9,9 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- <link rel="manifest" href="site.webmanifest"> -->
-   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+   <link rel="shortcut icon" type="image/x-icon" href="{{asset('/busicol/img/favicon.png')}}">
    <!-- Place favicon.ico in the root directory -->
-
+<link href="{{asset('medical/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
    <!-- CSS here -->
    <link rel="stylesheet" href="{{asset('/busicol/css/bootstrap.min.css')}}">
 
@@ -20,14 +20,30 @@
 </head>
 
 <body>
+   <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container navigation">
+        
+            <div class="navbar-header page-scroll">
+                <a class="navbar-brand" href="{{ url('') }}">
+                    <img src="{{URL::to('medical/img/logo.png')}}" alt="" width="150" height="40" />
+                </a>
 
-      </div>
-  </header>
-  <!-- header-end -->
-
+            <!-- Collect the nav links, forms, and other content for toggling -->
+             
+            <li style="list-style: none;
+    float: right;padding: 15px;"><a href="{{ url('admin/dashboard') }}" class="text-sm text-gray-700 ">Dashboard</a></li>
+            <li class="active" style="list-style: none;
+    float: right;padding: 15px;"><a href="{{url('')}}">Home</a>
+               </li>
+              </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
    <!--================Blog Area =================-->
-   <section class="blog_area single-post-area section-padding">
+   <section class="blog_area single-post-area section-padding" style=" padding-top: 10px;">
       <div class="container">
          <div class="row">
             <div class="col-lg-8 posts-list">
@@ -63,7 +79,11 @@
                </div>
                <div class="comments-area">
                   <h4>{{$posts->comments()->count()}} Comments</h4>
-
+                                    @if(session()->has('mess'))
+                                    <p class="alert alert-success">
+                                       {{session()->get('mess')}}
+                                    </p>
+                                    @endif
                   @foreach ($posts->comments as $comment)
                   <div class="comment-list">
                      <div class="single-comment justify-content-between d-flex">
@@ -77,14 +97,17 @@
                               </p>
                               <div class="d-flex justify-content-between">
                                  <div class="d-flex align-items-center">
-                                    <h5>
-                                       <a href="#"> {{$comment->user->name}}</a>
-                                    </h5>
-                                    <p class="date">{{$comment->created_at->diffForHumans()}} </p>
+                                 <h5>
+                                 <a href="#"> {{$comment->user->name}}</a>
+                                 </h5>
+                                 <p class="date">{{$comment->created_at->diffForHumans()}} </p>
                                  </div>
-                                 <div class="reply-btn">
+                                 <div class="likeBtn">
+                                    <a href="{{route('like',$comment->post_id)}}"><i class="fa fa-thumbs-up"></i> Like </a>
+                                 </div>
+<!--                                  <div class="reply-btn">
                                     <a href="#" class="btn-reply text-uppercase">reply</a>
-                                 </div>
+                                 </div> -->
                               </div>
                            </div>
                         </div>
@@ -136,83 +159,31 @@
                   <aside class="single_sidebar_widget post_category_widget">
                      <h4 class="widget_title">Category</h4>
                      <ul class="list cat-list">
+                        @foreach($allcategory as $cate)
                         <li>
                            <a href="#" class="d-flex">
-                              <p>Resaurant food</p>
-                              <p>(37)</p>
+                              <p>{{$cate->cat_name}}</p>
                            </a>
                         </li>
-                        <li>
-                           <a href="#" class="d-flex">
-                              <p>Travel news</p>
-                              <p>(10)</p>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" class="d-flex">
-                              <p>Modern technology</p>
-                              <p>(03)</p>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" class="d-flex">
-                              <p>Product</p>
-                              <p>(11)</p>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" class="d-flex">
-                              <p>Inspiration</p>
-                              <p>(21)</p>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" class="d-flex">
-                              <p>Health Care</p>
-                              <p>(21)</p>
-                           </a>
-                        </li>
+                        @endforeach
                      </ul>
                   </aside>
                   <aside class="single_sidebar_widget popular_post_widget">
                      <h3 class="widget_title">Recent Post</h3>
+
+                     @foreach($allpost as $post)
                      <div class="media post_item">
-                        <img src="img/post/post_1.png" alt="post">
+                        <img src="{{asset('public/image/'.$post->photo)}}"  style ="height:60px;width:60px"/>
                         <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>From life was you fish...</h3>
+                           <a href="{{route('post.details',$post->id)}}">
+                              <h3>{{$post->title}}</h3>
                            </a>
-                           <p>January 12, 2019</p>
+                           <p>{{$post->created_at->diffForHumans()}}</p>
                         </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_2.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>The Amazing Hubble</h3>
-                           </a>
-                           <p>02 Hours ago</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_3.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>Astronomy Or Astrology</h3>
-                           </a>
-                           <p>03 Hours ago</p>
-                        </div>
-                     </div>
-                     <div class="media post_item">
-                        <img src="img/post/post_4.png" alt="post">
-                        <div class="media-body">
-                           <a href="single-blog.html">
-                              <h3>Asteroids telescope</h3>
-                           </a>
-                           <p>01 Hours ago</p>
-                        </div>
-                     </div>
+                     </div> 
+                     @endforeach                    
                   </aside>
+
                   <aside class="single_sidebar_widget tag_cloud_widget">
                      <h4 class="widget_title">Tag Clouds</h4>
                      <ul class="list">
@@ -242,7 +213,7 @@
                         </li>
                      </ul>
                   </aside>
-                  <aside class="single_sidebar_widget instagram_feeds">
+<!--                   <aside class="single_sidebar_widget instagram_feeds">
                      <h4 class="widget_title">Instagram Feeds</h4>
                      <ul class="instagram_row flex-wrap">
                         <li>
@@ -276,8 +247,8 @@
                            </a>
                         </li>
                      </ul>
-                  </aside>
-                  <aside class="single_sidebar_widget newsletter_widget">
+                  </aside> -->
+<!--                   <aside class="single_sidebar_widget newsletter_widget">
                      <h4 class="widget_title">Newsletter</h4>
                      <form action="#">
                         <div class="form-group">
@@ -287,7 +258,7 @@
                         <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                            type="submit">Subscribe</button>
                      </form>
-                  </aside>
+                  </aside> -->
                </div>
             </div>
          </div>
